@@ -29,7 +29,10 @@ public class ModelHandler {
             db.transaction(
                 () -> {
                     Schema s = db.getSchema();
-                    new AreaModel().create(s);
+                    new AreaNodeModel().create(s);
+                    new TagNodeModel().create(s);
+                    new AlternateNameNodeModel().create(s);
+                    new PhysicalEdgeModel().create(s);
                 }
             );
         }
