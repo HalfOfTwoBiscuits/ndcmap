@@ -5,6 +5,12 @@
 /log
 *.log
 
+# Database exports
+/exports
+
+# VSCode metadata
+/.vscode
+
 # Build directory
 /target
 

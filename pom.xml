@@ -34,6 +34,17 @@
         </dependency>
 
         <!--
+            Database import/export.
+            Source: https://mvnrepository.com/artifact/com.arcadedb/arcadedb-integration 
+        -->
+        <dependency>
+            <groupId>com.arcadedb</groupId>
+            <artifactId>arcadedb-integration</artifactId>
+            <version>26.4.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--
             Unit test framework.
             Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
         -->
