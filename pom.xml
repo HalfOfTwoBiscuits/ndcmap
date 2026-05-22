@@ -4,6 +4,8 @@
     <groupId>me.sirrahmas</groupId>
     <artifactId>ndcmap</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
@@ -22,6 +24,16 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- 
+            Simple logger for Javalin.
+            Source: the Javalin console output suggested I put it in.
+        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+
         <!--
             Database engine.
             Source: https://mvnrepository.com/artifact/com.arcadedb/arcadedb-engine
@@ -29,17 +41,6 @@
         <dependency>
             <groupId>com.arcadedb</groupId>
             <artifactId>arcadedb-engine</artifactId>
-            <version>26.4.2</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!--
-            Database import/export.
-            Source: https://mvnrepository.com/artifact/com.arcadedb/arcadedb-integration 
-        -->
-        <dependency>
-            <groupId>com.arcadedb</groupId>
-            <artifactId>arcadedb-integration</artifactId>
             <version>26.4.2</version>
             <scope>compile</scope>
         </dependency>
@@ -58,16 +59,35 @@
 
     <build>
         <plugins>
+            <!--
+                Assembly plugin.
+                Compile project and its dependencies to a .jar file.
+                Unlike the compiler and resources plugins, it doesn't have a default
+                configuration and must be specified explicitly here.
+            -->
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                    <resources>
-                        <directories>
-                            <directory>/resources</directory>
-                        </directories>
-                    </resources>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        me.sirrahmas.ndcmap.NDCMap
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
