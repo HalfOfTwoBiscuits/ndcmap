@@ -5,8 +5,8 @@
 /log
 *.log
 
-# Database exports
-/exports
+# Database content
+/databases
 
 # VSCode metadata
 /.vscode

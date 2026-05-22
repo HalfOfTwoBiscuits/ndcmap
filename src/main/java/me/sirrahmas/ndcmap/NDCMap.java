@@ -10,7 +10,7 @@ import me.sirrahmas.ndcmap.queries.QueryHandler;
 public class NDCMap {
 
     public static void main(String[] args) {
-        DatabaseFactory dbf = new DatabaseFactory("/databases/ndcmap");
+        DatabaseFactory dbf = new DatabaseFactory("databases/ndcmap");
         
         ModelHandler mh = new ModelHandler(dbf);
         QueryHandler qh = new QueryHandler(dbf);
