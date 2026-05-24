@@ -1,4 +1,4 @@
-import { MapHandler } from "./modules/map"
+import { MapHandler } from "./modules/map.js"
 
 // Class responsible for initialising custom JS and adding it to the document's scope.
 class Base {

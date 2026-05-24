@@ -1,4 +1,7 @@
-class MapHandler {
+export class MapHandler {
+    #map;
+    #image;
+
     constructor() {
         this.#map = window.L.map("map", {
             crs: L.CRS.Simple
