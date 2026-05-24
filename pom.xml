@@ -55,6 +55,16 @@
             <version>6.0.3</version>
             <scope>test</scope>
         </dependency>
+
+        <!--
+            Template renderer for Javalin.
+            Source: https://javalin.io/plugins/rendering    
+        -->
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin-rendering-freemarker</artifactId>
+            <version>7.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>

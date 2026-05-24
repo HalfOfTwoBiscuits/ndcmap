@@ -12,6 +12,6 @@ public class MainPageView implements Handler {
 
     @Override
     public void handle(Context ctx) {
-        ctx.result("Hello World");
+        ctx.render("/templates/index.html");
     };
 }

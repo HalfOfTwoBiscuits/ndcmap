@@ -1,6 +1,7 @@
 package me.sirrahmas.ndcmap;
 
 import io.javalin.Javalin;
+import io.javalin.rendering.template.JavalinFreemarker;
 import me.sirrahmas.ndcmap.queries.QueryHandler;
 import me.sirrahmas.ndcmap.views.MainPageView;
 
@@ -9,6 +10,8 @@ class Controller {
     public Javalin createApp(QueryHandler qh) {
         return Javalin.create(
             config -> {
+                config.staticFiles.add("/static");
+                config.fileRenderer(new JavalinFreemarker());
                 config.routes.get("/", new MainPageView(qh));
             }
         );
