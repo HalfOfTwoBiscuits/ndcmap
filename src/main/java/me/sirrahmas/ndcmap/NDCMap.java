@@ -17,16 +17,14 @@ public class NDCMap {
         
         // If the database doesn't exist, create it.
         // If it already exists, migrate it, in case it changed.
-        // Later, migration should be made into a separate command.
+        // Later, migration should be made into a separate command-line argument.
         if (dbf.exists()) {mh.migrateDatabase(qh);}
         else {mh.createDatabase();}
 
         // Start web app.
         Controller c = new Controller();
-        Javalin j = c.createApp();
+        Javalin j = c.createApp(qh);
         j.start();
-
-        // Next: unit tests!
     }
 }
 
