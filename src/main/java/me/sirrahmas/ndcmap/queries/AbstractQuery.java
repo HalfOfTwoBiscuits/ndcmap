@@ -5,8 +5,8 @@ import com.arcadedb.database.Database;
 import com.arcadedb.query.sql.executor.ResultSet;
 
 // Query executed by the web app at runtime.
-// This abstract class provides a public method that returns a lambda
-// for `me.sirrahmas.ndcmap.QueryHandler` to use to execute the query.
+// This abstract class provides a method that returns a lambda
+// for `me.sirrahmas.ndcmap.queries.QueryHandler` to use to execute the query.
 // Children should specify the contents of the query in the `doQuery` method.
 public abstract class AbstractQuery {
     private ResultSet results;
