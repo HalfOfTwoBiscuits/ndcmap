@@ -47,7 +47,6 @@ so it wraps instead of scrolling */
 
 /* Leaflet.js map widget styling */
 #map {
-    width: 80vw;
     height: 80vh;
     margin: auto;
 }
