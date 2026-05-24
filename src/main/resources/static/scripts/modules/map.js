@@ -6,9 +6,16 @@ export class MapHandler {
         this.#map = window.L.map("map", {
             crs: L.CRS.Simple
         });
+
+        // Position, width, and height.
+        let mapBounds = [[0,0], [300, 550]];
+
         this.#image = L.imageOverlay(
-            `${window.location.hostname}/images/Map.png`,
-            [[0,0], [3000, 5500]]
-        ).addTo(this.#map);
+            `/images/Map.png`,
+            mapBounds
+        )
+        this.#map.fitBounds(mapBounds);
+
+        this.#image.addTo(this.#map);
     }
 }
