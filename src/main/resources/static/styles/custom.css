@@ -33,6 +33,10 @@ input[type=checkbox] {
     height: 20px;
 }
 
+h1.\<a\> {
+    margin-block-start: 0px !important;
+}
+
 /* Amendment to the missing.css framework's navbar widget
 so it wraps instead of scrolling */
 .navbar {
