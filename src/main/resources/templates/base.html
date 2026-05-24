@@ -1,0 +1,54 @@
+<!--
+ Substitute for Jinja-style base template using macros.
+ The child templates override `page_content` and `other_head_data`,
+ then call `render`.
+ .html file format is used instead of the usual .ftl
+ in order to keep autocomplete and syntax highlighting
+ in VSCodium (could maybe create some sort of alias for that later).
+-->
+
+<#macro page_content></#macro>
+
+<#macro other_head_data></#macro>
+
+<#macro render>
+    <!doctype html>
+    <html lang="en-GB">
+        <head>
+            <!-- Metadata -->
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <!-- Browser tab data -->
+            <title>NDCMap</title>
+            <link rel="icon" href='/images/favicon.ico'>
+
+            <!-- Dependencies -->
+            <link rel="stylesheet" href="https://unpkg.com/missing.css@1.2.0">
+            <link rel="stylesheet" href="/styles/custom.css">
+            <script src='/scripts/base.js' type='module'></script>
+            <@other_head_data/>
+        </head>
+
+        <body onload="Base.loadPage()">
+            <!-- Navbar -->
+            <header class="navbar">
+                <nav>
+                    <ul role="list" class="align-items:center">
+                        <li>
+                            <h1>
+                                <a href="/">NDCMap</a>
+                            </h1>
+                        </li>
+                        <li>
+                            <a href="#">Search</a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <!-- Main content -->
+            <@page_content/>
+        </body>
+    </html>
+</#macro>

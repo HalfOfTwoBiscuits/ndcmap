@@ -1,0 +1,49 @@
+/* General aesthetic CSS */
+
+:root {
+    --big-font: 1.45rem;
+    --usual-font: 1.25rem;
+    --small-font: 1rem;
+}
+
+main {
+    font-size: var(--usual-font);
+}
+
+header {
+    margin-block: 0px;
+}
+
+header a {
+    font-size: var(--big-font);
+}
+
+form {
+    border: 2px solid;
+    padding: 10px;
+}
+
+input[type=submit], button, .\<button\> {
+    padding: 5px !important;
+    font-size: var(--usual-font) !important;
+}
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+}
+
+/* Amendment to the missing.css framework's navbar widget
+so it wraps instead of scrolling */
+.navbar {
+    & * {
+        flex-shrink: 1 !important;
+    }
+}
+
+/* Leaflet.js map widget styling */
+#map {
+    width: 80vw;
+    height: 80vh;
+    margin: auto;
+}
