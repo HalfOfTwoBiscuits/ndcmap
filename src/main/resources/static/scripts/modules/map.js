@@ -4,7 +4,9 @@ export class MapHandler {
 
     constructor() {
         this.#map = window.L.map("map", {
-            crs: L.CRS.Simple
+            crs: L.CRS.Simple,
+            minZoom: 1,
+            maxZoom: 3
         });
 
         // Position, width, and height.
@@ -15,6 +17,9 @@ export class MapHandler {
             mapBounds
         )
         this.#map.fitBounds(mapBounds);
+
+        // Restrict panning outside the map.
+        this.#map.setMaxBounds(mapBounds);
 
         this.#image.addTo(this.#map);
     }
