@@ -8,7 +8,7 @@ export class MapHandler {
         });
 
         // Position, width, and height.
-        let mapBounds = [[0,0], [300, 550]];
+        let mapBounds = [[0,0], [550, 300]];
 
         this.#image = L.imageOverlay(
             `/images/Map.png`,
