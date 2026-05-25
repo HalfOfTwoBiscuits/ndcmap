@@ -4,6 +4,7 @@
     --big-font: 1.45rem;
     --usual-font: 1.25rem;
     --small-font: 1rem;
+    background-color: #beb;
 }
 
 main {
@@ -48,5 +49,5 @@ so it wraps instead of scrolling */
 /* Leaflet.js map widget styling */
 #map {
     height: 80vh;
-    margin: auto;
+    border: 5px solid;
 }
