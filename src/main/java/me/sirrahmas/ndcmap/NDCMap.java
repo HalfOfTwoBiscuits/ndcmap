@@ -9,7 +9,7 @@ import me.sirrahmas.ndcmap.queries.QueryHandler;
 // Main class responsible for deploying the web app.
 public class NDCMap {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         DatabaseFactory dbf = new DatabaseFactory("databases/ndcmap");
         
         ModelHandler mh = new ModelHandler(dbf);

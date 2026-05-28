@@ -37,7 +37,7 @@ public class ModelHandler {
     // The data will be stored in "exports/ndcmap-export-<timestamp>.jsonl.tgz".
     // If the export fails, then the migration will not take place -
     // if the import fails, then that's where the data will be backed up.
-    public void migrateDatabase(QueryHandler qh) {
+    public void migrateDatabase(QueryHandler qh) throws Exception {
 
         // Query to populate database.
         InsertDataQuery idq = new InsertDataQuery();
