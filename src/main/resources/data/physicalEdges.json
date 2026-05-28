@@ -1,0 +1,16 @@
+[
+    {
+        "id1": "collegeEntrance",
+        "id2": "reception",
+        "vertex1": [737, 4748],
+        "vertex2": [837, 4825],
+        "isFireExit": false
+    },
+    {
+        "id1": "collegeEntrance",
+        "id2": "roadFromEntranceToCarPark",
+        "vertex1": [238, 4599],
+        "vertex2": [393, 4599],
+        "isFireExit": false
+    }
+]

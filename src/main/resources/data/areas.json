@@ -1,0 +1,48 @@
+[
+    {
+        "id": "collegeEntrance",
+        "name": "College Entrance",
+        "corners": [
+            [238, 4599],
+            [737, 4599],
+            [737, 4748],
+            [837, 4825],
+            [926, 4825],
+            [926, 5725],
+            [238, 5725]
+        ],
+        "alternateNames": [
+            "Outside Reception"
+        ]
+    },
+    {
+        "id": "reception",
+        "name": "Reception",
+        "corners": [
+            [737, 4599],
+            [737, 4748],
+            [837, 4825],
+            [926, 4825],
+            [926, 4599]
+        ],
+        "alternateNames": [
+            "Room A1",
+            "Inside Entrance"
+        ]
+    },
+    {
+        "id": "roadFromEntranceToCarPark",
+        "name": "Road From Entrance To Car Park",
+        "corners": [
+            [238, 4599],
+            [393, 4599],
+            [393, 4098],
+            [338, 4098],
+            [338, 2558],
+            [238, 2558]
+        ],
+        "alternateNames": [
+            "Long Road Past Lifestyle Centre"
+        ]
+    }
+]

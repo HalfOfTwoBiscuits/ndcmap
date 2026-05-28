@@ -35,6 +35,16 @@
         </dependency>
 
         <!--
+            Template renderer for Javalin.
+            Source: https://javalin.io/plugins/rendering    
+        -->
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin-rendering-freemarker</artifactId>
+            <version>7.2.2</version>
+        </dependency>
+
+        <!--
             Database engine.
             Source: https://mvnrepository.com/artifact/com.arcadedb/arcadedb-engine
         -->
@@ -56,14 +66,15 @@
             <scope>test</scope>
         </dependency>
 
-        <!--
-            Template renderer for Javalin.
-            Source: https://javalin.io/plugins/rendering    
+        <!-- 
+            JSON parser.
+            Source: https://mvnrepository.com/artifact/org.json/json
         -->
         <dependency>
-            <groupId>io.javalin</groupId>
-            <artifactId>javalin-rendering-freemarker</artifactId>
-            <version>7.2.2</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20260522</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,19 @@
+
+[
+    {
+        "name": "Green space",
+        "iconFilename": null,
+        "areasTagged": ["collegeEntrance"]
+    },
+    {
+        "name": "Place to eat",
+        "iconFilename": null,
+        "areasTagged": []
+    },
+    {
+        "name": "Fire assembly point",
+        "iconFilename": null,
+        "areasTagged": []
+    }
+]
+
