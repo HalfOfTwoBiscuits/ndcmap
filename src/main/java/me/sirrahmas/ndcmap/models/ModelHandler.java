@@ -28,6 +28,10 @@ public class ModelHandler {
                     new TagNodeModel().create(s);
                     new AlternateNameNodeModel().create(s);
                     new PhysicalEdgeModel().create(s);
+
+                    // Simple types of edge with no properties
+                    s.createEdgeType("aka");
+                    s.createEdgeType("taggedWith");
                 }
             );
         }
