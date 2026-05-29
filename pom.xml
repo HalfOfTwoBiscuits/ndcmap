@@ -66,6 +66,16 @@
             <version>20260522</version>
             <scope>compile</scope>
         </dependency>
+
+        <!--
+            A more modern JSON parser required by Javalin
+            to return JSON data from an endpoint.
+        -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.21.2</version>
+        </dependency>
     </dependencies>
 
     <build>
