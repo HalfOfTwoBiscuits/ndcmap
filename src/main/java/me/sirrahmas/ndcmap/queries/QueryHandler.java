@@ -18,7 +18,7 @@ public class QueryHandler {
     // Executes the query. Commits on success, on failure, rolls back and throws the exception again.
     // Returns either the query result, or null for no result.
     // NOTE: In a future project, maybe a better name than 'query' would be 'operation'?
-    public ResultSet doQuery(AbstractQuery q) throws Exception {
+    public ResultSet doQuery(AbstractQuery q) throws QueryException {
         try (Database db = dbf.open();) {
             try {
                 db.begin();

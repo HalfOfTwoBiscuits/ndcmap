@@ -17,7 +17,12 @@ public abstract class AbstractQuery {
     // It may return a ResultSet to the caller, or return null.
     abstract ResultSet doQuery(Database db) throws Exception;
 
-    void execute(Database db) throws Exception {
-        results = doQuery(db);
+    void execute(Database db) throws QueryException {
+        try {
+            results = doQuery(db);
+        }
+        catch (Exception e) {
+            throw new QueryException("Exception during database query", e);
+        }
     }
 }
