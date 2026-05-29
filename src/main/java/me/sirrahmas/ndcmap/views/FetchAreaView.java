@@ -5,9 +5,11 @@ import java.util.List;
 import com.arcadedb.graph.IterableGraph;
 import com.arcadedb.graph.Vertex;
 import com.arcadedb.graph.Vertex.DIRECTION;
+import com.arcadedb.query.sql.executor.ResultSet;
 
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+import io.javalin.util.JavalinLogger;
 import me.sirrahmas.ndcmap.queries.QueryException;
 import me.sirrahmas.ndcmap.queries.QueryHandler;
 import me.sirrahmas.ndcmap.queries.SelectAllAreasQuery;
@@ -59,12 +61,22 @@ public class FetchAreaView implements Handler {
 
     // Get area tapped, or null if none.
     Vertex getAreaTapped(Integer x, Integer y) throws QueryException {
+        JavalinLogger.info("Tapped area at " + x + ", " + y);
+
         SelectAllAreasQuery saaq = new SelectAllAreasQuery();
-        List<Vertex> areas = qh.doQuery(saaq).toVertices();
+        ResultSet areaResult = qh.doQuery(saaq);
+        List<Vertex> areas = areaResult.toVertices();
+
+        JavalinLogger.info("Found " + areas.size() + "vertices");
 
         for (Vertex area : areas) {
+            JavalinLogger.info("Checking area: " + area.getString("name"));
             if (positionIsWithinArea(area, x, y)) {
+                JavalinLogger.info("Within area");
                 return area;
+            }
+            else {
+                JavalinLogger.info("Not within area");
             }
         }
 
@@ -79,6 +91,7 @@ public class FetchAreaView implements Handler {
         int numCorners = cornerXs.size();
         boolean result = false;
 
+        JavalinLogger.info("Area: `" + area.getString("name") + "` has " + numCorners + " corners");
         // Iterate through corners in pairs.
         // Start with the first and last corner.
         int index2 = numCorners - 1;
@@ -98,6 +111,7 @@ public class FetchAreaView implements Handler {
                 // and a horizontal line from the touched point would cross that side,
                 touchedX < (corner2x - corner1x) * (touchedY - corner1y) / (corner2y - corner1y) + corner1x
             ) {
+                JavalinLogger.info("Passed through the edge of the shape.");
                 // then the line has exited the shape, meaning the point must be inside.
                 result = !result;
                 // or, if this occurs a second time, the line has entered the shape again
