@@ -1,6 +1,7 @@
 package me.sirrahmas.ndcmap.models;
 
 import com.arcadedb.schema.Schema;
+import com.arcadedb.schema.Schema.INDEX_TYPE;
 import com.arcadedb.schema.VertexType;
 
 class AreaNodeModel extends AbstractModel<VertexType> {
@@ -16,5 +17,10 @@ class AreaNodeModel extends AbstractModel<VertexType> {
             new ModelProperty("cornerXs", "List", "Integer", true),
             new ModelProperty("cornerYs", "List", "Integer", true)
         };
+    }
+
+    @Override
+    void createIndexes(Schema s) {
+        s.createTypeIndex(INDEX_TYPE.LSM_TREE, true, "Area", "name");
     }
 }

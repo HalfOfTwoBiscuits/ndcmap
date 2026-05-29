@@ -17,6 +17,9 @@ abstract class AbstractModel<T extends DocumentType> {
     // representing the properties of this model.
     abstract ModelProperty[] createProperties();
 
+    // Create indexes against properties.
+    void createIndexes(Schema s) {};
+
     // Create record type, add it to the schema,
     // give it properties, and return it.
     // The type's name, class, and properties
@@ -29,6 +32,8 @@ abstract class AbstractModel<T extends DocumentType> {
         for (ModelProperty p : properties) {
             p.addTo(type);
         }
+
+        createIndexes(s);
         return type;
     }
 }
