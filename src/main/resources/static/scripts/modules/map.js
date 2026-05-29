@@ -61,7 +61,7 @@ export class MapHandler {
         let y = event.containerPoint.y * (this.#MAP_HEIGHT * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetHeight;
 
         // Fetch area data from server.
-        let url = `${location.hostname}/getAreaFromPos/${x}/${y}`;
+        let url = `getAreaFromPos/${x}/${y}`;
         let response = await fetch(url);
         try {
             // Handle errors.
