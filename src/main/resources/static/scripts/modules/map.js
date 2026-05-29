@@ -7,6 +7,10 @@ export class MapHandler {
     #areaNameElem;
     #altNamesElem;
 
+    #MAP_WIDTH = 300;
+    #MAP_HEIGHT = 550;
+    #MAP_UNIT_TO_PIXEL_SCALE = 10; // 1 map unit = 10 pixels on-image.
+
     constructor(notificationHandler, infoBoxElem, areaNameElem, altNamesElem) {
         this.#map = L.map("map", {
             crs: L.CRS.Simple,
@@ -15,7 +19,8 @@ export class MapHandler {
         });
 
         // Position, width, and height.
-        let mapBounds = [[0,0], [550, 300]];
+        // Co-ordinates in Leaflet are written y,x to match lat,long.
+        let mapBounds = [[0,0], [this.#MAP_HEIGHT, this.#MAP_WIDTH]];
 
         this.#image = L.imageOverlay(
             `/images/Map.png`,
@@ -47,8 +52,13 @@ export class MapHandler {
     }
 
     async selectArea(event) {
-        let x = event.layerPoint.x;
-        let y = event.layerPoint.y;
+        // Calculate corresponding x,y on the image.
+        // Inspired by https://stackoverflow.com/questions/29495702/getting-pixel-coordinates-of-an-image-overlay-using-leaflet-map-library-on-click
+        let offsetWidth = this.#map.getContainer().offsetWidth;
+        let offsetHeight = this.#map.getContainer().offsetHeight;
+        
+        let x = event.containerPoint.x * (this.#MAP_WIDTH * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetWidth;
+        let y = event.containerPoint.y * (this.#MAP_HEIGHT * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetHeight;
 
         // Fetch area data from server.
         let url = `${location.hostname}/getAreaFromPos/${x}/${y}`;
