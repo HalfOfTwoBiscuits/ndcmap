@@ -43,52 +43,51 @@ export class MapHandler {
         this.#altNamesElem = altNamesElem;
 
         // Register event for clicking the map.
-        map.on("click", (event) => {this.#selectArea(event)});
+        this.#map.on("click", (event) => {this.selectArea(event)});
     }
 
-    #selectArea(event) {
+    async selectArea(event) {
         let x = event.layerPoint.x;
         let y = event.layerPoint.y;
 
         // Fetch area data from server.
         let url = `${location.hostname}/getAreaFromPos/${x}/${y}`;
-        fetch(url)
-        .then((response) => {
-            try {
-                // Handle errors.
-                if (response.status == 400) {
-                    throw new Error(`Invalid x,y parameters for area select: ${x},${y}`);
-                }
-                else if (response.status == 404) {
-                    console.log(`No area found at ${x},${y}`);
-                }
-                else if (!response.ok) {
-                    throw new Error(`Unexpected error when selecting area at ${x},${y}`);
-                }
-                else {
-                    let json = await response.json();
-                    // Pan to area.
-                    this.#map.flyTo([json.centroidX, json.centroidY], 1.5);
-    
-                    // Add icon showing the area is selected.
-                    this.#addAreaSelectedIcon(json.centroidX, json.centroidY);
+        let response = await fetch(url);
+        try {
+            // Handle errors.
+            if (response.status == 400) {
+                throw new Error(`Invalid x,y parameters for area select: ${x},${y}`);
+            }
+            else if (response.status == 404) {
+                console.log(`No area found at ${x},${y}`);
+            }
+            else if (!response.ok) {
+                throw new Error(`Unexpected error when selecting area at ${x},${y}`);
+            }
+            else {
+                const data = await response.json();
 
-                    // Add info box.
-                    this.#addAreaInfoBox(json.areaName, json.altNames);
-                }
+                // Pan to area.
+                this.#map.flyTo([json.centroidX, json.centroidY], 1.5);
+
+                // Add icon showing the area is selected.
+                this.#addAreaSelectedIcon(json.centroidX, json.centroidY);
+
+                // Add info box.
+                this.#addAreaInfoBox(json.areaName, json.altNames);
             }
-            catch (error) {
-                // Display errors in the console, and to the user.
-                console.error(error.message);
-                if (this.#notificationHandler) {
-                    this.#notificationHandler.announceError(error.message);
-                }
-                else {
-                    // This might happen if the error region element was not found.
-                    console.error("Notification handler object was not provided, so no error is shown to the user!")
-                }
+        }
+        catch (error) {
+            // Display errors in the console, and to the user.
+            console.error(error.message);
+            if (this.#notificationHandler) {
+                this.#notificationHandler.announceError(error.message);
             }
-        })
+            else {
+                // This might happen if the error region element was not found.
+                console.error("Notification handler object was not provided, so no error is shown to the user!")
+            }
+        }
     }
 
     #addAreaSelectedIcon(x, y) {

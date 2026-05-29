@@ -1,5 +1,5 @@
 // Helper that displays error message notifications.
-class NotificationHandler {
+export class NotificationHandler {
     #errorRegion;
 
     constructor(errorRegionElem) {

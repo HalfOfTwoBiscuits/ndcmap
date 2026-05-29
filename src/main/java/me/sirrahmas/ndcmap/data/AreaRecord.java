@@ -18,7 +18,7 @@ public class AreaRecord extends AbstractRecord<MutableVertex> {
 
         int totalX = 0;
         int totalY = 0;
-        int cornerCount = cornerXs.size();
+        int cornerCount = corners.size();
 
         for (Integer[] corner : corners) {
             Integer x = corner[0];
