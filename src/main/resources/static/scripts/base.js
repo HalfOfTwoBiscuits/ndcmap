@@ -1,11 +1,27 @@
 import { MapHandler } from "./modules/map.js"
+import { NotificationHandler } from "./modules/notification.js"
 
 // Class responsible for initialising custom JS and adding it to the document's scope.
 class Base {
     static loadPage() {
+
+        // Add notification handler for error messages.
+        let notificationHandler = null;
+        let errorRegion = document.getElementById("errors");
+        if (errorRegion) {
+            notificationHandler = new NotificationHandler(errorRegion);
+        }
+
+        // Add map widget.
         if (document.getElementById("map")) {
-            let mh = new MapHandler();
-            window.mapHandler = mh;
+            let areaDetailDiv = document.getElementById("areaInfo");
+            let areaNameHeading = document.getElementById("areaName");
+            let areaAltNamesP = document.getElementById("areaAltNames");
+
+            if (areaDetailDiv && areaNameHeading && areaAltNamesP) {
+                let mh = new MapHandler(notificationHandler, areaDetailDiv, areaNameHeading, areaAltNamesP);
+                window.mapHandler = mh;
+            }
         }
     }
 }

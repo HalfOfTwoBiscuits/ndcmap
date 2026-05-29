@@ -15,7 +15,14 @@
 <#macro page_content>
   <main>
     <div id="errors" role="alert" aria-label="Error messages"></div>
+    
     <div id="map" aria-label="Map of North Devon College"></div>
+
+    <div id="areaInfo" hidden="true" class="box" aria-label="Area Details">
+      <h2 id="areaName"></h2>
+      <p id="areaAltNames"></p>
+      <button onclick="mapHandler.hideAreaInfoBox()">Close</button>
+    </div>
   </main>
 </#macro>
 
