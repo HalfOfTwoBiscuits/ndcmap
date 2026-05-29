@@ -13,7 +13,7 @@ class Controller {
             config -> {
                 config.staticFiles.add("/static");
                 config.fileRenderer(new JavalinFreemarker());
-                config.routes.get("/", new MainPageView(qh));
+                config.routes.get("/", new MainPageView());
                 config.routes.get("/getAreaFromPos/{x}/{y}", new FetchAreaView(qh));
             }
         );
