@@ -78,7 +78,7 @@ export class MapHandler {
                 throw new Error(`Unexpected error when selecting area at ${x},${y}`);
             }
             else {
-                const data = await response.json();
+                const json = await response.json();
 
                 // Pan to area.
                 this.#map.flyTo([json.centroidX, json.centroidY], 1.5);
