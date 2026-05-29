@@ -15,7 +15,9 @@ class AreaNodeModel extends AbstractModel<VertexType> {
         return new ModelProperty[]{
             new ModelProperty("name", "String", null, true),
             new ModelProperty("cornerXs", "List", "Integer", true),
-            new ModelProperty("cornerYs", "List", "Integer", true)
+            new ModelProperty("cornerYs", "List", "Integer", true),
+            new ModelProperty("centroidX", "Integer", null, true),
+            new ModelProperty("centroidY", "Integer", null, true),
         };
     }
 
