@@ -2,13 +2,10 @@ package me.sirrahmas.ndcmap.views;
 
 import java.util.List;
 
-import com.arcadedb.graph.IterableGraph;
-import com.arcadedb.graph.Vertex;
-import com.arcadedb.graph.Vertex.DIRECTION;
-
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.util.JavalinLogger;
+import me.sirrahmas.ndcmap.queries.AreaResult;
 import me.sirrahmas.ndcmap.queries.DatabaseInteractionException;
 import me.sirrahmas.ndcmap.queries.QueryHandler;
 import me.sirrahmas.ndcmap.queries.SelectAllAreasQuery;
@@ -38,37 +35,34 @@ public class FetchAreaView implements Handler {
             return;
         }
 
-        Vertex areaTapped = getAreaTapped(x,y);
+        AreaResult areaTapped = getAreaTapped(x,y);
         if (areaTapped == null) {
             // If the tapped location isn't in an area, status code 404 (not found).
             ctx.status(404);
             return;
         }
-
-        // Find alternate names.
-        IterableGraph altNames = areaTapped.getVertices(DIRECTION.BOTH, "aka");
         
         // Return JSON data.
         JSONResponse r = new JSONResponse(
-            areaTapped.getString("name"),
-            areaTapped.getInteger("centroidX"),
-            areaTapped.getInteger("centroidY"),
-            altNames.toList()
+            areaTapped.name(),
+            areaTapped.centroidX(),
+            areaTapped.centroidY(),
+            areaTapped.altNames()
         );
         ctx.json(r);
     };
 
     // Get area tapped, or null if none.
-    Vertex getAreaTapped(Integer x, Integer y) throws DatabaseInteractionException {
+    AreaResult getAreaTapped(Integer x, Integer y) throws DatabaseInteractionException {
         JavalinLogger.info("Tapped area at " + x + ", " + y);
 
         SelectAllAreasQuery saaq = new SelectAllAreasQuery();
-        List<Vertex> areas = qh.doQuery(saaq);
+        List<AreaResult> areas = qh.doQuery(saaq);
 
         JavalinLogger.info("Found " + areas.size() + "vertices");
 
-        for (Vertex area : areas) {
-            JavalinLogger.info("Checking area: " + area.getString("name"));
+        for (AreaResult area : areas) {
+            JavalinLogger.info("Checking area: " + area.name());
             if (positionIsWithinArea(area, x, y)) {
                 JavalinLogger.info("Within area");
                 return area;
@@ -82,14 +76,14 @@ public class FetchAreaView implements Handler {
     }
 
     // Return boolean for whether the position is within the area.
-    boolean positionIsWithinArea(Vertex area, Integer touchedX, Integer touchedY) {
-        List<Integer> cornerXs = area.getList("cornerXs");
-        List<Integer> cornerYs = area.getList("cornerYs");
+    boolean positionIsWithinArea(AreaResult area, Integer touchedX, Integer touchedY) {
+        List<Integer> cornerXs = area.cornerXs();
+        List<Integer> cornerYs = area.cornerYs();
 
         int numCorners = cornerXs.size();
         boolean result = false;
 
-        JavalinLogger.info("Area: `" + area.getString("name") + "` has " + numCorners + " corners");
+        JavalinLogger.info("Area: `" + area.name() + "` has " + numCorners + " corners");
         // Iterate through corners in pairs.
         // Start with the first and last corner.
         int index2 = numCorners - 1;
