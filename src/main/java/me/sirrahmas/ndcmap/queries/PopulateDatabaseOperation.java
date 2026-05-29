@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import com.arcadedb.database.Database;
 import com.arcadedb.graph.MutableVertex;
-import com.arcadedb.query.sql.executor.ResultSet;
 
 import me.sirrahmas.ndcmap.data.AlternateNameRecord;
 import me.sirrahmas.ndcmap.data.AreaRecord;
@@ -22,9 +21,9 @@ import me.sirrahmas.ndcmap.util.json.StringArrayParser;
 
 // Query used internally to populate the database.
 // Gets data from JSON files.
-public class InsertDataQuery extends AbstractQuery {
+public class PopulateDatabaseOperation extends AbstractOperation {
     @Override
-    ResultSet doQuery(Database db) throws IOException, JSONException {
+    void doOperation(Database db) throws IOException, JSONException {
 
         JSONFileReader jfr = new JSONFileReader();
         CoordinateArrayParser cap = new CoordinateArrayParser(); 
@@ -108,7 +107,5 @@ public class InsertDataQuery extends AbstractQuery {
                 taggedArea.newEdge("taggedWith", tag);
             }
         }
-
-        return null;
     }
 }

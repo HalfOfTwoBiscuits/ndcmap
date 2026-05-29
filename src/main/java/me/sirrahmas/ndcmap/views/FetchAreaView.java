@@ -5,12 +5,11 @@ import java.util.List;
 import com.arcadedb.graph.IterableGraph;
 import com.arcadedb.graph.Vertex;
 import com.arcadedb.graph.Vertex.DIRECTION;
-import com.arcadedb.query.sql.executor.ResultSet;
 
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.util.JavalinLogger;
-import me.sirrahmas.ndcmap.queries.QueryException;
+import me.sirrahmas.ndcmap.queries.DatabaseInteractionException;
 import me.sirrahmas.ndcmap.queries.QueryHandler;
 import me.sirrahmas.ndcmap.queries.SelectAllAreasQuery;
 
@@ -27,7 +26,7 @@ public class FetchAreaView implements Handler {
     ) {}
 
     @Override
-    public void handle(Context ctx) throws QueryException, NumberFormatException {
+    public void handle(Context ctx) throws DatabaseInteractionException, NumberFormatException {
         Integer x;
         Integer y;
         try {
@@ -60,12 +59,11 @@ public class FetchAreaView implements Handler {
     };
 
     // Get area tapped, or null if none.
-    Vertex getAreaTapped(Integer x, Integer y) throws QueryException {
+    Vertex getAreaTapped(Integer x, Integer y) throws DatabaseInteractionException {
         JavalinLogger.info("Tapped area at " + x + ", " + y);
 
         SelectAllAreasQuery saaq = new SelectAllAreasQuery();
-        ResultSet areaResult = qh.doQuery(saaq);
-        List<Vertex> areas = areaResult.toVertices();
+        List<Vertex> areas = qh.doQuery(saaq);
 
         JavalinLogger.info("Found " + areas.size() + "vertices");
 

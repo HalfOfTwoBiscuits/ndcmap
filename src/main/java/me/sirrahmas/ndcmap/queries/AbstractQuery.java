@@ -1,28 +1,27 @@
 package me.sirrahmas.ndcmap.queries;
 
 import com.arcadedb.database.Database;
-import com.arcadedb.query.sql.executor.ResultSet;
 
-// Query executed by the web app at runtime.
-// This abstract class provides a method that returns a lambda
-// for `me.sirrahmas.ndcmap.queries.QueryHandler` to use to execute the query.
-// Children should specify the contents of the query in the `doQuery` method.
-public abstract class AbstractQuery {
-    private ResultSet results;
-    ResultSet getResults() {return results;}
+// Query to be executed by the web app at runtime.
+// Children should specify its contents in the execute() method.
+// It is like an AbstractOperation but it has a return value of type T.
+public abstract class AbstractQuery<T> implements DatabaseInteraction {
+    private T results;
+    T getResults() {return results;}
 
     // Contents of the query.
     // If it throws an exception, the transaction will be rolled back
     // and the exception will be thrown again.
-    // It may return a ResultSet to the caller, or return null.
-    abstract ResultSet doQuery(Database db) throws Exception;
+    // It returns a result of type T to the caller.
+    abstract T doQuery(Database db) throws Exception;
 
-    void execute(Database db) throws QueryException {
+    @Override
+    public void execute(Database db) throws DatabaseInteractionException {
         try {
             results = doQuery(db);
         }
         catch (Exception e) {
-            throw new QueryException("Exception during database query", e);
+            throw new DatabaseInteractionException("Exception during database query", e);
         }
     }
 }

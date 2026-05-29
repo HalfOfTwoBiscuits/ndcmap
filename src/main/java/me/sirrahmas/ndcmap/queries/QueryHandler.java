@@ -2,7 +2,6 @@ package me.sirrahmas.ndcmap.queries;
 
 import com.arcadedb.database.Database;
 import com.arcadedb.database.DatabaseFactory;
-import com.arcadedb.query.sql.executor.ResultSet;
 
 // Class responsible for executing database queries.
 // The queries are represented by implementations of 
@@ -16,21 +15,29 @@ public class QueryHandler {
     }
 
     // Executes the query. Commits on success, on failure, rolls back and throws the exception again.
-    // Returns either the query result, or null for no result.
-    // NOTE: In a future project, maybe a better name than 'query' would be 'operation'?
-    public ResultSet doQuery(AbstractQuery q) throws QueryException {
+    // Returns the query result.
+    public <T> T doQuery(AbstractQuery<T> q) throws DatabaseInteractionException {
+        doTransaction(q);
+        return q.getResults();
+    }
+
+    // Executes the operation. Like doQuery but doesn't return a result.
+    public void doOperation(AbstractOperation o) throws DatabaseInteractionException {
+        doTransaction(o);
+    }
+
+    private void doTransaction(DatabaseInteraction i) throws DatabaseInteractionException {
         try (Database db = dbf.open();) {
             try {
                 db.begin();
-                q.execute(db);
+                i.execute(db);
                 db.commit();
-            } catch (Exception e) {
+            } catch (DatabaseInteractionException e) {
                 db.rollback();
                 throw e;
             } finally {
                 db.close();
             }
-            return q.getResults();
         }
     }
 }

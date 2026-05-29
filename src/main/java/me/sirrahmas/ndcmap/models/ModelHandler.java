@@ -4,7 +4,7 @@ import com.arcadedb.database.Database;
 import com.arcadedb.database.DatabaseFactory;
 import com.arcadedb.schema.Schema;
 
-import me.sirrahmas.ndcmap.queries.InsertDataQuery;
+import me.sirrahmas.ndcmap.queries.PopulateDatabaseOperation;
 import me.sirrahmas.ndcmap.queries.QueryHandler;
 
 // Class responsible for applying the schema to the database
@@ -44,7 +44,7 @@ public class ModelHandler {
     public void migrateDatabase(QueryHandler qh) throws Exception {
 
         // Query to populate database.
-        InsertDataQuery idq = new InsertDataQuery();
+        PopulateDatabaseOperation pdo = new PopulateDatabaseOperation();
 
         // Drop database.
         try ( Database db = dbf.open() ) {
@@ -55,6 +55,6 @@ public class ModelHandler {
         createDatabase();
 
         // Re-insert data.
-        qh.doQuery(idq);
+        qh.doOperation(pdo);
     }
 }
