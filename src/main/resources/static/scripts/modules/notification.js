@@ -8,7 +8,7 @@ export class NotificationHandler {
 
     announceError(errorMessage) {
         let notifElem = document.createElement('p');
-        notifElem.textContent = content;
+        notifElem.textContent = errorMessage;
         notifElem.className = "bad box";
         this.#errorRegion.appendChild(notifElem);
     }

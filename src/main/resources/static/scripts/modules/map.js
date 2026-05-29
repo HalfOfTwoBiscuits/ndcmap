@@ -47,6 +47,9 @@ export class MapHandler {
         this.#areaNameElem = areaNameElem;
         this.#altNamesElem = altNamesElem;
 
+        // Store notification handler object.
+        this.#notificationHandler = notificationHandler;
+
         // Register event for clicking the map.
         this.#map.on("click", (event) => {this.selectArea(event)});
     }
