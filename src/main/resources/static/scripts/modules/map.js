@@ -60,8 +60,8 @@ export class MapHandler {
         let offsetWidth = this.#map.getContainer().offsetWidth;
         let offsetHeight = this.#map.getContainer().offsetHeight;
         
-        let x = event.containerPoint.x * (this.#MAP_WIDTH * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetWidth;
-        let y = event.containerPoint.y * (this.#MAP_HEIGHT * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetHeight;
+        let x = Math.round(event.containerPoint.x * (this.#MAP_WIDTH * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetWidth);
+        let y = Math.round(event.containerPoint.y * (this.#MAP_HEIGHT * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetHeight);
 
         // Fetch area data from server.
         let url = `getAreaFromPos/${x}/${y}`;
