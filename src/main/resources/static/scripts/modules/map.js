@@ -94,7 +94,7 @@ export class MapHandler {
             // Display errors in the console, and to the user.
             console.error(error.message);
             if (this.#notificationHandler) {
-                this.#notificationHandler.announceError(error.message);
+                this.#notificationHandler.announceError("Something went wrong when selecting the tapped area. Please reload the page and try again.");
             }
             else {
                 // This might happen if the error region element was not found.
