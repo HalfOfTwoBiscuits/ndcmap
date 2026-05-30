@@ -134,7 +134,9 @@ export class MapHandler {
 
     #addAreaInfoBox(areaName, altNames) {
         this.#areaNameElem.textContent = areaName;
-        this.#altNamesElem.textContent = `A.K.A. ${altNames.join(", ")}`;
+        if (altNames.length > 0) {
+            this.#altNamesElem.textContent = `A.K.A. ${altNames.join(", ")}`;
+        }
         this.#infoBoxElem.hidden = false;
     }
 
