@@ -44,7 +44,7 @@ export class MapHandler {
         // https://www.streamlinehq.com/icons/flex-line?search=box-outline&icon=ico_dtKyVX23N5nEEUHo
         this.#selectedAreaIcon = L.imageOverlay(
             '/images/SelectedAreaIcon.png',
-            [[0,0], [48,48]]
+            [[0,0], [this.#ICON_HEIGHT,this.#ICON_HEIGHT]]
         )
 
         // Store elements for info box content.
@@ -91,11 +91,14 @@ export class MapHandler {
             else {
                 const json = await response.json();
 
+                let centroidX = json.centroidX / this.#MAP_UNIT_TO_PIXEL_SCALE;
+                let centroidY = json.centroidY / this.#MAP_UNIT_TO_PIXEL_SCALE;
+
                 // Pan to area.
-                this.#map.flyTo([json.centroidX, json.centroidY], 1.5);
+                this.#map.flyTo([centroidY, centroidX], 1.5);
 
                 // Add icon showing the area is selected.
-                this.#addAreaSelectedIcon(json.centroidX, json.centroidY);
+                this.#addAreaSelectedIcon(centroidX, centroidY);
 
                 // Add info box.
                 this.#addAreaInfoBox(json.areaName, json.altNames);
@@ -116,7 +119,7 @@ export class MapHandler {
 
     #addAreaSelectedIcon(x, y) {
         this.#selectedAreaIcon.setBounds(
-            [[y,x], [48,48]]
+            [[y,x], [this.#ICON_HEIGHT,this.#ICON_HEIGHT]]
         );
         this.#selectedAreaIcon.addTo(this.#map);
     }
