@@ -70,9 +70,14 @@ export class MapHandler {
         // Determine the scale factor between pixels on-page and on the map image.
         let horzScaleFactor = this.#IMAGE_WIDTH / containerWidth;
         let vertScaleFactor = this.#IMAGE_HEIGHT / containerHeight;
-        
-        let x = Math.round(event.containerPoint.x * horzScaleFactor);
-        let y = Math.round(event.containerPoint.y * vertScaleFactor);
+
+        // Add map pan.
+        let currentTopleft = this.#map.getPixelBounds().getBottomLeft();
+        let horzPan = currentTopleft.x;
+        let vertPan = currentTopleft.y + this.#MAP_HEIGHT;
+
+        let x = Math.round(event.containerPoint.x * horzScaleFactor + horzPan);
+        let y = Math.round(event.containerPoint.y * vertScaleFactor + vertPan);
 
         // Fetch area data from server.
         let url = `getAreaFromPos/${x}/${y}`;
