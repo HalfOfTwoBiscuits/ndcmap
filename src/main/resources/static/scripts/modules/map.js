@@ -140,5 +140,6 @@ export class MapHandler {
 
     hideAreaInfoBox() {
         this.#infoBoxElem.hidden = true;
+        this.#selectedAreaIcon.remove();
     }
 }
