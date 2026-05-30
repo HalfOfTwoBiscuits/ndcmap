@@ -7,9 +7,14 @@ export class MapHandler {
     #areaNameElem;
     #altNamesElem;
 
+    // Width and height of the map in map units.
     #MAP_WIDTH = 300;
     #MAP_HEIGHT = 550;
+    #ICON_HEIGHT = 4.8;
+
     #MAP_UNIT_TO_PIXEL_SCALE = 10; // 1 map unit = 10 pixels on-image.
+    #IMAGE_WIDTH = 3000;
+    #IMAGE_HEIGHT = 5500;
 
     constructor(notificationHandler, infoBoxElem, areaNameElem, altNamesElem) {
         this.#map = L.map("map", {
@@ -55,13 +60,19 @@ export class MapHandler {
     }
 
     async selectArea(event) {
-        // Calculate corresponding x,y on the image.
-        // Inspired by https://stackoverflow.com/questions/29495702/getting-pixel-coordinates-of-an-image-overlay-using-leaflet-map-library-on-click
-        let offsetWidth = this.#map.getContainer().offsetWidth;
-        let offsetHeight = this.#map.getContainer().offsetHeight;
+        // Calculate corresponding x,y on the image for the x,y tapped on the map.
+        let container = this.#map.getContainer();
+        let containerStyle = window.getComputedStyle(container);
+
+        let containerWidth = parseInt(containerStyle.width);
+        let containerHeight = parseInt(containerStyle.height);
+
+        // Determine the scale factor between pixels on-page and on the map image.
+        let horzScaleFactor = this.#IMAGE_WIDTH / containerWidth;
+        let vertScaleFactor = this.#IMAGE_HEIGHT / containerHeight;
         
-        let x = Math.round(event.containerPoint.x * (this.#MAP_WIDTH * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetWidth);
-        let y = Math.round(event.containerPoint.y * (this.#MAP_HEIGHT * this.#MAP_UNIT_TO_PIXEL_SCALE) / offsetHeight);
+        let x = Math.round(event.containerPoint.x * horzScaleFactor);
+        let y = Math.round(event.containerPoint.y * vertScaleFactor);
 
         // Fetch area data from server.
         let url = `getAreaFromPos/${x}/${y}`;
