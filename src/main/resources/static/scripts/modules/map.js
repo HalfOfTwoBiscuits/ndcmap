@@ -10,11 +10,11 @@ export class MapHandler {
     // Width and height of the map in map units.
     #MAP_WIDTH = 300;
     #MAP_HEIGHT = 550;
-    #ICON_HEIGHT = 4.8;
 
     #MAP_UNIT_TO_PIXEL_SCALE = 10; // 1 map unit = 10 pixels on-image.
     #IMAGE_WIDTH = 3000;
     #IMAGE_HEIGHT = 5500;
+    #ICON_SIZE = 8;
 
     constructor(notificationHandler, infoBoxElem, areaNameElem, altNamesElem) {
         this.#map = L.map("map", {
@@ -44,7 +44,7 @@ export class MapHandler {
         // https://www.streamlinehq.com/icons/flex-line?search=box-outline&icon=ico_dtKyVX23N5nEEUHo
         this.#selectedAreaIcon = L.imageOverlay(
             '/images/SelectedAreaIcon.png',
-            [[0,0], [this.#ICON_HEIGHT,this.#ICON_HEIGHT]]
+            [[0,0], [this.#ICON_SIZE,this.#ICON_SIZE]]
         )
 
         // Store elements for info box content.
@@ -71,7 +71,8 @@ export class MapHandler {
         let horzScaleFactor = this.#IMAGE_WIDTH / containerWidth;
         let vertScaleFactor = this.#IMAGE_HEIGHT / containerHeight;
 
-        // Add map pan.
+        // Add map pan. In map units, y co-ordinate is from bottom to top,
+        // so this means getting the bottom left and adding the map height to reverse the direction.
         let currentTopleft = this.#map.getPixelBounds().getBottomLeft();
         let horzPan = currentTopleft.x;
         let vertPan = currentTopleft.y + this.#MAP_HEIGHT;
@@ -99,9 +100,6 @@ export class MapHandler {
                 let centroidX = json.centroidX / this.#MAP_UNIT_TO_PIXEL_SCALE;
                 let centroidY = json.centroidY / this.#MAP_UNIT_TO_PIXEL_SCALE;
 
-                // Pan to area.
-                this.#map.flyTo([centroidY, centroidX], 1.5);
-
                 // Add icon showing the area is selected.
                 this.#addAreaSelectedIcon(centroidX, centroidY);
 
@@ -123,9 +121,14 @@ export class MapHandler {
     }
 
     #addAreaSelectedIcon(x, y) {
+        // Add icon for selected area.
+        // Image from:
+        // https://www.streamlinehq.com/icons/flex-line?search=box-outline&icon=ico_dtKyVX23N5nEEUHo
+
+        y = this.#MAP_HEIGHT - y;
         this.#selectedAreaIcon.setBounds(
-            [[y,x], [this.#ICON_HEIGHT,this.#ICON_HEIGHT]]
-        );
+            [[y,x], [y + this.#ICON_SIZE, x + this.#ICON_SIZE]]
+        )
         this.#selectedAreaIcon.addTo(this.#map);
     }
 
