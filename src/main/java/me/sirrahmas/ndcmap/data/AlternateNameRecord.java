@@ -18,6 +18,6 @@ public class AlternateNameRecord extends AbstractRecord<MutableVertex> {
     
     @Override
     void configure(MutableVertex altName) {
-        altName.set("name", name);
+        altName.set("content", name);
     }
 }

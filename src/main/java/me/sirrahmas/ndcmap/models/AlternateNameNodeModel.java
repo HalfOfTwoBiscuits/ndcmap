@@ -1,7 +1,7 @@
 package me.sirrahmas.ndcmap.models;
 
-import com.arcadedb.schema.VertexType;
 import com.arcadedb.schema.Schema;
+import com.arcadedb.schema.VertexType;
 
 public class AlternateNameNodeModel extends AbstractModel<VertexType> {
     @Override
@@ -12,7 +12,7 @@ public class AlternateNameNodeModel extends AbstractModel<VertexType> {
     @Override
     ModelProperty[] createProperties() {
         return new ModelProperty[]{
-            new ModelProperty("name", "String", null, true),
+            new ModelProperty("content", "String", null, true),
             new ModelProperty("iconFilename", "String", null, true),
         };
     }

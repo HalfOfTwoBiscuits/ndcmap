@@ -18,7 +18,7 @@ public record AreaResult(String name, List<Integer> cornerXs, List<Integer> corn
         List<String> altNameStrings = new ArrayList<>();
 
         for (Vertex altNameNode : altNameNodes) {
-            altNameStrings.add(altNameNode.getString("name"));
+            altNameStrings.add(altNameNode.getString("content"));
         }
 
         this(
