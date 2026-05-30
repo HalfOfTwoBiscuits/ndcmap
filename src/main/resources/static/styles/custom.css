@@ -39,15 +39,23 @@ h1.\<a\> {
 }
 
 /* Amendment to the missing.css framework's navbar widget
-so it wraps instead of scrolling */
+so it wraps instead of scrolling, and isn't sticky, so it doesn't get covered by the map.*/
 .navbar {
     & * {
         flex-shrink: 1 !important;
     }
+    position: static !important;
+    padding: 10px !important;
+    margin-bottom: 10px;
 }
 
 /* Leaflet.js map widget styling */
 #map {
-    height: 80vh;
+    height: 70vh;
     border: 5px solid;
+}
+
+/* Area info box styling */
+#areaInfo {
+    margin-bottom: 10px;
 }
