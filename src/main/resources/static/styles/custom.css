@@ -51,10 +51,3 @@ so it wraps instead of scrolling */
     height: 80vh;
     border: 5px solid;
 }
-
-/* Area info box styling */
-#areaInfo {
-    position: absolute;
-    left: 20vw;
-    top: 20vh;
-}
