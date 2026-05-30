@@ -42,9 +42,10 @@ public class PopulateDatabaseOperation extends AbstractOperation {
         for (JSONObject areaDatum : areaData) {
             // Create areas.
             String areaID = areaDatum.getString("id");
-            String name = areaDatum.getString("name");
+            String areaName = areaDatum.getString("name");
+
             ArrayList<Integer[]> corners = cap.parse(areaDatum, "corners");
-            MutableVertex area = new AreaRecord(name, corners).create(db);
+            MutableVertex area = new AreaRecord(areaName, corners).create(db);
             areas.put(areaID, area);
 
             // Link alternate names.
@@ -54,7 +55,7 @@ public class PopulateDatabaseOperation extends AbstractOperation {
 
                 // If the alternate name node doesn't exist, create it.
                 if (altNameRecord == null) {
-                    altNameRecord = new AlternateNameRecord(name).create(db);
+                    altNameRecord = new AlternateNameRecord(altName).create(db);
                     existingAltNames.put(altName, altNameRecord);
                 }
 
