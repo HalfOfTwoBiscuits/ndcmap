@@ -72,12 +72,12 @@ export class MapHandler {
         let vertScaleFactor = this.#IMAGE_HEIGHT / containerHeight;
 
         // Add map pan. In map units, y co-ordinate is from bottom to top,
-        // so this means getting the bottom left and adding the map height to reverse the direction.
+        // so this means getting the bottom left and adding the container height to reverse the direction.
         let currentTopleft = this.#map.getPixelBounds().getBottomLeft();
         let horzPan = currentTopleft.x;
-        let vertPan = currentTopleft.y + this.#MAP_HEIGHT;
+        let vertPan = currentTopleft.y + containerHeight;
 
-        let x = Math.round(event.containerPoint.x * horzScaleFactor + horzPan);
+        let x = Math.round((event.containerPoint.x + horzPan) * horzScaleFactor);
         let y = Math.round(event.containerPoint.y * vertScaleFactor + vertPan);
 
         // Fetch area data from server.
