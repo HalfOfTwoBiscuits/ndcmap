@@ -24,7 +24,7 @@ public class NDCMap {
         // Start web app.
         Controller c = new Controller();
         Javalin j = c.createApp(qh);
-        j.start();
+        j.start(7000);
     }
 }
 
