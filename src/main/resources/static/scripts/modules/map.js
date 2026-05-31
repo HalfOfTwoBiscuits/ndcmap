@@ -56,7 +56,12 @@ export class MapHandler {
         this.#notificationHandler = notificationHandler;
 
         // Register event for clicking the map.
-        this.#map.on("click", (event) => {this.selectArea(event)});
+        this.#map.on("click", (event) => {
+            // Click detection doesn't currently work at zoom levels higher than 1.
+            if (this.#map.getZoom() === 1) {
+                this.selectArea(event)
+            }
+        });
     }
 
     async selectArea(event) {
